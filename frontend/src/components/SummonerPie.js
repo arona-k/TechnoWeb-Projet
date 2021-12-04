@@ -39,7 +39,7 @@ export default class SummonerPie extends PureComponent {
 
     return (
       <div className="chart">
-        <h5> {this.state.wins + this.state.losses} Games</h5>
+        <h5 style={{textAlign: 'center'}}> {this.state.wins + this.state.losses} Games</h5>
       <PieChart width={150} height={150}>
         <Pie
           data={data}
