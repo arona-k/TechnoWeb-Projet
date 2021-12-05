@@ -24,6 +24,9 @@ app.use((req, res, next) => {
 server.listen(port);
 console.log("Serveur lancé sur le port : " + port);
 
+mongoDBModule.populateCollectionWithMockDataIfEmpty()
+    .then((response) => console.log(response));
+
 
 // Récupération des summoners
 app.get('/api/summoners', (req, res) => {

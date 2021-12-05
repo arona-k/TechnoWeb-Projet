@@ -1,6 +1,8 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 
+var dataJson = require('../json/data.json')
+
 
 // Connection URL
 const url = 'mongodb://localhost:27017';
@@ -157,4 +159,34 @@ exports.deleteSummoner = async function (id) {
 		client.close();
 		return reponse;
 	}
+}
+
+exports.populateCollectionWithMockDataIfEmpty = async () => {
+    let client = await MongoClient.connect(url, { useNewUrlParser: true });
+    let db = client.db(dbName);
+    let response;
+    try {
+        let summonersCount = await db.collection('summoner').countDocuments();
+        if (summonersCount == 0) {
+            for (let i = 0; i < dataJson.length; i++) {
+                await db.collection("summoner").insertOne(dataJson[i])
+            }
+            response = {
+                success: true,
+                msg: "Mock Data ajoutée dans la collection",
+            }
+        }
+        response = {
+            success: true,
+            msg: "Summoners déjà présents dans la collection",
+        }
+    } catch (err) {
+        response = {
+            success: false,
+            msg: "erreur lors de l'ajout"
+        };
+    } finally {
+        client.close();
+        return response;
+    }
 }
