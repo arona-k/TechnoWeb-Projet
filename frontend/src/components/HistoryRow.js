@@ -224,9 +224,11 @@ export default class HistoryRow extends React.Component
 
     renderTFTRow()
     {
+        /*PAS accès au DATA du set 6... on ne peut pas afficher les statics items (images champions, traits...)*/
         const match = this.state.match;
         const participantId = this.getParticipantId();
         const participant = match.participants[ participantId ];
+
         let historyContainer = "historyContainer ";
         if ( participant.placement > 4)
         {
@@ -245,18 +247,16 @@ export default class HistoryRow extends React.Component
             <div className={historyContainer}>
                 <Row>
                     <Col xs={2}>
-                        <Row>
+                        <Row className="justify-items-center">
                             <h1>{participant.placement}</h1>
                         </Row>
                         <Container className="d-flex p-2" >
                             
                         </Container>
-                    </Col>
-
-                    <Col>
-                        <Container className="d-flex flex-column">
-                            
-                        </Container>
+                    </Col>       
+                    <Col xs={8}>
+                    
+                        
                     </Col>
 
                     <Col>
