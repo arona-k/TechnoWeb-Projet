@@ -9,6 +9,7 @@ import Tab from 'react-bootstrap/Tab';
 import RiotAPI  from '../tools/RiotAPI';
 import SummonerLeague from './SummonerLeague';
 import SummonerMastery from './SummonerMastery';
+import SummonerButton from './SummonerButton';
 import champion_list from '../jsons/champion.json';
 
 const PROFILE_ICON_URL = 'http://ddragon.leagueoflegends.com/cdn/11.23.1/img/profileicon';
@@ -173,11 +174,14 @@ export default class SummonerBrief extends React.Component{
         const masteryData = this.parseMasteryData()
         let sumHeaderStyle = null;
         let masteryComponent = null;
-        let containerStyle = "MLContainer restricted"
+        let btn = null;
+        let masteryWidget = null;
+        let containerStyle = "MLContainer restricted";
+
 
         if (masteryData !== null)
         {
-            const imgUrl = `${SPLASH_ART_URL}/${masteryData.name}_0.jpg`
+            const imgUrl = `${SPLASH_ART_URL}/${masteryData.name.replace(/\s+/g, '')}_0.jpg`
             sumHeaderStyle = {
                 backgroundImage: `url(${imgUrl})`,
                 backgroundPosition: 'center',
@@ -185,12 +189,19 @@ export default class SummonerBrief extends React.Component{
             let  champName = masteryData.name;
             let values = {
                 mLevel : masteryData.masteryLevel,
-                mIcon : `${CHAMP_SQUARE_ASSET_URL}/${champName}.png`,
+                mIcon : `${CHAMP_SQUARE_ASSET_URL}/${champName.replace(/\s+/g, '')}.png`,
                 mPoints : masteryData.championPoints.toLocaleString(),
             }
             
             masteryComponent = <SummonerMastery champName ={champName} mIcon={values.mIcon} mLevel={values.mLevel} mPoints={values.mPoints} />;
+            btn = (unranked != null)?null:<SummonerButton summonerName={summonerName}/>;
             containerStyle = "MLContainer";
+
+            masteryWidget =<Col>
+                            {masteryComponent}
+                            {btn}
+                            </Col>;
+            
         }
 
 
@@ -209,7 +220,7 @@ export default class SummonerBrief extends React.Component{
             </Container>
             <Container className={containerStyle}>
                 <Row className="align-items-center">
-                    {masteryComponent}
+                    {masteryWidget}
                     <Col><Container className="sumBriefContainer">
                         <Tabs defaultActiveKey="league0" id="uncontrolled-tab-example" className="mb-3 tabLink" variant="pills">
                             {leagueTab.map((leagueData, index) => 
@@ -220,6 +231,7 @@ export default class SummonerBrief extends React.Component{
                             {unranked}
                         </Tabs> 
                     </Container></Col>
+                    
                 </Row>
             </Container>
             </div>

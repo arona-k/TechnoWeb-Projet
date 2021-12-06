@@ -8,10 +8,10 @@ import Container from 'react-bootstrap/Container';
 export default function SummonerMastery(props)
 {
         return (
-        <Col><Container className="sumBriefContainer sumMastery">        
+        <Container className="sumBriefContainer sumMastery">        
             <Row>
                 <Col className = "d-flex justify-content-center">
-                    <Image src={props.mIcon } />
+                    <Image src={ props.mIcon } />
                 </Col>
                 <Col>
                     <Row><h1>{ props.champName }</h1></Row>
@@ -19,6 +19,6 @@ export default function SummonerMastery(props)
                     <Row><p> { props.mPoints} mastery points</p></Row>
                 </Col>
             </Row>
-        </Container></Col>
+        </Container>
     );
 }

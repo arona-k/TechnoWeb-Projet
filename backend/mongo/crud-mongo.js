@@ -74,15 +74,15 @@ exports.createSummoner = async (formData) => {
 
 	try {
 		let toInsert = {
-			name: formData.name,
-			level: formData.lvl,
+			summonerName: formData.summonerName,
+			level: formData.level,
             rank: formData.rank,
             school: formData.school,
 		};
 		await db.collection("summoner").insertOne(toInsert);
 		reponse = {
 			succes: true,
-			result: toInsert._id,
+			result: toInsert,
 			msg: "Ajout réussi " + toInsert._id
 		};
 	} catch (err) {

@@ -1,29 +1,15 @@
 [
     {
-        "summonerName": "Keex",
-        "level": "380",
-        "rank": "platinum",
+        "summonerName": "Pépito 44",
+        "level": "272",
+        "rank": "PLATINUM IV",
         "school": "ECE"
     },
 
     {
-        "summonerName": "DarkTitan",
-        "level": "356",
-        "rank": "platinum",
+        "summonerName": "Lakyoos",
+        "level": "232",
+        "rank": "PLATINUM III",
         "school": "ECE"
-    },
-
-    {
-        "summonerName": "Yuki",
-        "level": "425",
-        "rank": "gold",
-        "school": "ECE"
-    },
-
-    {
-        "summonerName": "PainKiller",
-        "level": "312",
-        "rank": "platinum",
-        "school": "ESCE"
     }
 ]

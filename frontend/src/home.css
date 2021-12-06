@@ -61,10 +61,8 @@ p {
   max-width: 100%;
 }
 
-
 /*Mastery and league container*/
-.MLContainer
-{
+.MLContainer {
   border-radius: 15px;
   margin-top: 1em;
   padding: 1em;
@@ -77,10 +75,10 @@ p {
   margin-right: auto;
 }
 
-.sumHeaderText > h1, h3{
+.sumHeaderText > h1,
+h3 {
   text-shadow: 1px 1px 2px black;
 }
-
 
 /* LEAGUE BRIEF */
 
@@ -205,4 +203,8 @@ footer {
 .container > h3,
 h5 {
   color: white;
+}
+
+.lbTable {
+  margin-top: 2em;
 }
