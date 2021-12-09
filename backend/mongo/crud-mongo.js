@@ -67,6 +67,35 @@ exports.findSummonerById = async (id) => {
 	}
 }
 
+exports.findSummonerByName = async (summonerName) => {
+	let client = await MongoClient.connect(url, { useNewUrlParser: true });
+	let db = client.db(dbName);
+	let reponse;
+
+	try {
+		let myquery = { "summonerName": summonerName };
+
+		let data = await db.collection("summoner").findOne(myquery);
+
+		reponse = {
+			succes: true,
+			summoner: data,
+			error: null,
+			msg: "Details du summoner envoyé"
+		};
+	} catch (err) {
+		reponse = {
+			succes: false,
+			summoner: null,
+			error: err,
+			msg: "erreur lors du find" + myqery
+		};
+	} finally {
+		client.close();
+		return reponse;
+	}
+}
+
 exports.createSummoner = async (formData) => {
 	let client = await MongoClient.connect(url, { useNewUrlParser: true });
 	let db = client.db(dbName);

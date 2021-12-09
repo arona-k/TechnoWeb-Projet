@@ -147,7 +147,7 @@ export default class SummonerHandler extends React.Component{
         let account = this.state.accountLOL;
         const rank = this.getLeagueRank();
         return (
-            <Container style={{maxWidth: "500px"}}>
+            <Container style={{marginTop: "2em", maxWidth: "500px", color: "white"}}>
                 <Form onSubmit={this.handleSubmit}>
                     <Row>
                         <Col>

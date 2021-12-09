@@ -1,11 +1,8 @@
 import axios from 'axios';
 
-const API_URL = "http://localhost:8080";
+const API_URL = "http://localhost:8080/api/summoner";
 
-/* ENDPOINTS */
-const API_SUMMONER = "api/summoners";
-const API_PUT_SUMMONER = "api/summoner";
-const API_DEL_SUMMONER = "api/delete/summoner";
+
 
 /** OMNES API Handler
 Contains differents method to call endpoints
@@ -17,19 +14,19 @@ export default class OmnesAPI {
      * @param  {string} name, the name of the summoner
      */
     fetchSummoners(){
-        const URL = `${API_URL}/${API_SUMMONER}/`;
+        const URL = `${API_URL}/summoners`;
         return axios
         .get(URL);
     }
 
     postSummoner(summoner){
-        const URL = `${API_URL}/${API_PUT_SUMMONER}/`;
+        const URL = `${API_URL}/`;
         return axios
         .post(URL, summoner);
     }
 
     deleteSummoner(id){
-        const URL = `${API_URL}/${API_DEL_SUMMONER}/${id}`;
+        const URL = `${API_URL}/${id}`;
         return axios
         .delete(URL);
     }

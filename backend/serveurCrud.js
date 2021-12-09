@@ -29,7 +29,7 @@ mongoDBModule.populateCollectionWithMockDataIfEmpty()
 
 
 // Récupération des summoners
-app.get('/api/summoners', (req, res) => {
+app.get('/api/summoner/summoners', (req, res) => {
 
 	mongoDBModule.findSummoners()
 		.then(data => {
@@ -38,10 +38,20 @@ app.get('/api/summoners', (req, res) => {
 });
 
 // Récupération d'un seul summoner par son id
-app.get('/api/summoner/:id', (req, res) => {
+app.get('/api/summoner/by-id/:id', (req, res) => {
 	let id = req.params.id;
 
 	mongoDBModule.findSummonerById(id)
+		.then(data => {
+			res.send(JSON.stringify(data));
+		});
+});
+
+// Récupération d'un seul summoner par son nom
+app.get('/api/summoner/by-name/:summonerName', (req, res) => {
+	let summonerName = req.params.summonerName;
+
+	mongoDBModule.findSummonerByName(summonerName)
 		.then(data => {
 			res.send(JSON.stringify(data));
 		});
@@ -57,7 +67,7 @@ app.post('/api/summoner', multerData.fields([]), (req, res) => {
 });
 
 // Modification d'un summoner
-app.put('/api/update/summoner/:id', multerData.fields([]), (req, res) => {
+app.put('/api/update/summoner/by-id/:id', multerData.fields([]), (req, res) => {
 	let id = req.params.id;
 
 	mongoDBModule.updateSummoner(id, req.body)
@@ -67,7 +77,7 @@ app.put('/api/update/summoner/:id', multerData.fields([]), (req, res) => {
 });
 
 // Suppression d'un summoner
-app.delete('/api/delete/summoner/:id', (req, res) => {
+app.delete('/api/summoner/delete/by-id/:id', (req, res) => {
 	let id = req.params.id;
 
 	mongoDBModule.deleteSummoner(id)

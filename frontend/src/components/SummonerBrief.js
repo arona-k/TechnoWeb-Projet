@@ -7,6 +7,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
 import RiotAPI  from '../tools/RiotAPI';
+import OmnesAPI from '../tools/OmnesAPI';
 import SummonerLeague from './SummonerLeague';
 import SummonerMastery from './SummonerMastery';
 import SummonerButton from './SummonerButton';
@@ -181,20 +182,34 @@ export default class SummonerBrief extends React.Component{
 
         if (masteryData !== null)
         {
-            const imgUrl = `${SPLASH_ART_URL}/${masteryData.name.replace(/\s+/g, '')}_0.jpg`
+            /*
+                Pour qu'un nom de champion soit correct, il faut que tout les caractères soit minuscule sauf le premier,
+                Qu'il n'y ait que des caractères alphanumérique
+                Par exemple: Vel'Koz => Velkoz
+            */
+            const champName = masteryData.name;
+            let champImgPath = champName.replace(/[^a-z0-9]/gmi, " ").replace(/\s+/g, "");
+            console.log(champImgPath);
+            //Gestion des exeptions:
+            switch (champImgPath){
+                case "VelKoz": champImgPath = "Velkoz"; break;
+                case "KaiSa" : champImgPath = "KaiSa"; break;
+                default:;
+            }
+            const imgUrl = `${SPLASH_ART_URL}/${champImgPath}_0.jpg`
             sumHeaderStyle = {
                 backgroundImage: `url(${imgUrl})`,
                 backgroundPosition: 'center',
             }
-            let  champName = masteryData.name;
             let values = {
                 mLevel : masteryData.masteryLevel,
-                mIcon : `${CHAMP_SQUARE_ASSET_URL}/${champName.replace(/\s+/g, '')}.png`,
+                mIcon : `${CHAMP_SQUARE_ASSET_URL}/${champImgPath}.png`,
                 mPoints : masteryData.championPoints.toLocaleString(),
             }
             
+
             masteryComponent = <SummonerMastery champName ={champName} mIcon={values.mIcon} mLevel={values.mLevel} mPoints={values.mPoints} />;
-            btn = (unranked != null)?null:<SummonerButton summonerName={summonerName}/>;
+            btn = (unranked != null)?null:<SummonerButton path={`/Ajouter/${summonerName}`} txt="Ajouter au Leaderboard"/>;
             containerStyle = "MLContainer";
 
             masteryWidget =<Col>

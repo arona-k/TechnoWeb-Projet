@@ -4,9 +4,10 @@ import Image from 'react-bootstrap/Image';
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-import { Outlet } from 'react-router';
+import { Outlet, Link } from 'react-router-dom';
 
-import OmnesAPI from '../tools/OmnesAPI.js';
+import OmnesAPI from '../tools/OmnesAPI';
+
 
 /*
 WIP
@@ -99,10 +100,12 @@ export default class Leaderboard extends React.Component{
         
         let summoners = this.state.summoners;
         let btnAdmin = null;
+        let btnNavigate = null;
 
         if (!this.state.adminMode)
         {
             btnAdmin = {display: "none"};
+            btnNavigate = null;
         }
 
         
@@ -121,7 +124,7 @@ export default class Leaderboard extends React.Component{
                 </thead>
                 <tbody>
                 {summoners.map( (s, index) => <tr>  
-                                                    <th> {s["summonerName"]}</th>
+                                                    <th>  <Link to={`/Summoner/${s["summonerName"]}`} className="">{s["summonerName"]}</Link></th>
                                                     <th> {s["level"]}</th>
                                                     <th> {s["rank"]}</th>
                                                     <th> {s["school"]}</th>
