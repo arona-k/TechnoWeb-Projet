@@ -21,10 +21,8 @@ export default function Home() {
      */
     function handleSubmit( event ){
         event.preventDefault();
-        console.log( event )
         const value = event.target.elements.summonerName.value;
 
-        console.log(value);
         if( value !== "") 
          {
             navigate(`/Summoner/${value}`);

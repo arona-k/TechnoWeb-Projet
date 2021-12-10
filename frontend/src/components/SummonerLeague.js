@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 
 import SummonerPie from './SummonerPie';
 
@@ -36,7 +35,6 @@ export default class SummonerHistory extends React.Component{
 
     renderTFTExeption(){
         const league = this.state.league;
-        console.log(league);
         return(        
             <Row>
                 <Col style={{borderRight: 'solid #2b2b2b 0.1em'}}>
@@ -51,7 +49,7 @@ export default class SummonerHistory extends React.Component{
     }
     render()
     {
-        if(this.state.league.queueType == "RANKED_TFT_TURBO")
+        if(this.state.league.queueType === "RANKED_TFT_TURBO")
         {
             return this.renderTFTExeption();
         }

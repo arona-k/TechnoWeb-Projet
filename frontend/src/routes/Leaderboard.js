@@ -51,7 +51,6 @@ export default class Leaderboard extends React.Component{
                 fetched: true,
                 summoners: response.data.data,
             });
-            console.log(this.state);
         })
         .catch((error) => {
             console.log(error);
@@ -117,7 +116,6 @@ export default class Leaderboard extends React.Component{
         event.preventDefault();
         const value = event.target.elements.school.value;
         let s = this.state.summonerToModify;
-        console.log(s["_id"]);
         if (value !== "Choisir son école"){
             s["school"] = value;
             this.updateSummoner(s["_id"], s)
