@@ -9,10 +9,7 @@ import Col from 'react-bootstrap/Col';
 
 export default class SummonerForm extends React.Component{
     constructor(props){
-        super(props);
-        console.log(this.props);
-
-        
+        super(props);  
     }
 
     render(){

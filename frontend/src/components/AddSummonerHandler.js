@@ -146,7 +146,6 @@ export default class SummonerHandler extends React.Component{
     leaderboardForm()
     {
         let account = this.state.accountLOL;
-        console.log(account);
         const rank = this.getLeagueRank();
         return (
             <SummonerForm handleSubmit={this.handleSubmit} name={account.name} summonerLevel={account.summonerLevel} rank={rank} invalidInput={this.state.invalidInput} btnText="Ajouter"/>
