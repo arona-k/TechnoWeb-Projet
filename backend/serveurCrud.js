@@ -67,7 +67,7 @@ app.post('/api/summoner', multerData.fields([]), (req, res) => {
 });
 
 // Modification d'un summoner
-app.put('/api/update/summoner/by-id/:id', multerData.fields([]), (req, res) => {
+app.put('/api/summoner/update/by-id/:id', multerData.fields([]), (req, res) => {
 	let id = req.params.id;
 
 	mongoDBModule.updateSummoner(id, req.body)

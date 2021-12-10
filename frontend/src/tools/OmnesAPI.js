@@ -19,14 +19,26 @@ export default class OmnesAPI {
         .get(URL);
     }
 
+    fetchSummoner(summonerName){
+        const URL=`${API_URL}/by-name/${summonerName}`
+        return axios
+        .get(URL);
+    }
+
     postSummoner(summoner){
         const URL = `${API_URL}/`;
         return axios
         .post(URL, summoner);
     }
 
+    updateSummoner(id, s){
+        const URL = `${API_URL}/update/by-id/${id}/`;
+        return axios
+        .put(URL, s);
+    }
+
     deleteSummoner(id){
-        const URL = `${API_URL}/${id}`;
+        const URL = `${API_URL}/delete/by-id/${id}`;
         return axios
         .delete(URL);
     }

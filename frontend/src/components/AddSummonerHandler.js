@@ -1,12 +1,13 @@
 import React from 'react';
-import RiotAPI from '../tools/RiotAPI';
 
+
+import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
+
+import SummonerForm from './SummonerForm';
+
+import RiotAPI from '../tools/RiotAPI';
 import OmnesAPI from '../tools/OmnesAPI';
 
 
@@ -145,48 +146,10 @@ export default class SummonerHandler extends React.Component{
     leaderboardForm()
     {
         let account = this.state.accountLOL;
+        console.log(account);
         const rank = this.getLeagueRank();
         return (
-            <Container style={{marginTop: "2em", maxWidth: "500px", color: "white"}}>
-                <Form onSubmit={this.handleSubmit}>
-                    <Row>
-                        <Col>
-                            <Form.Group className="mb-3" controlId="name">
-                                <Form.Label>Nom d'invocateur</Form.Label>
-                                <Form.Control className="sumControl" type="text" placeholder={account.name} readOnly/>
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                        <Form.Group className="mb-3" controlId="level">
-                                <Form.Label>Level</Form.Label>
-                                <Form.Control className="sumControl" type="text" placeholder={account.summonerLevel} readOnly/>
-                        </Form.Group>
-                        </Col>
-                    </Row>
-                    <Form.Group className="mb-3" controlId="rank">
-                        <Form.Label>Rank</Form.Label>
-                        <Form.Control type="text" className="sumControl" placeholder={rank} readOnly/>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="school">
-                        <Form.Label>École</Form.Label>
-                        <Form.Select isInvalid={this.state.invalidInput} className="sumControl">
-                            <option>Choisir son école</option>
-                            <option value="ECE">ECE</option>
-                            <option value="ESCE">ESCE</option>
-                            <option value="HEIP">HEIP</option>
-                            <option value="Sup de Pub">Sup de Pub</option>
-                            <option value="EBS">EBS</option>
-                        </Form.Select>
-                    </Form.Group>
-
-                    <Row className="justify-content-center">
-                        <Button className="homeSubmitBtn" type="submit" style={{maxWidth: "100px"}}>
-                            Ajouter
-                        </Button>
-                    </Row>
-                </Form>
-            </Container>
+            <SummonerForm handleSubmit={this.handleSubmit} name={account.name} summonerLevel={account.summonerLevel} rank={rank} invalidInput={this.state.invalidInput} btnText="Ajouter"/>
         );
     }
 
@@ -199,7 +162,7 @@ export default class SummonerHandler extends React.Component{
             return <p>error</p>
 
         if ( this.state.posted )
-            return <p>invocateur ajouté</p>
+            return <Container><Alert style={{marginTop: "1em", borderRadius: "25px", textAlign: "center"}} variant="success">Invocateur Ajouté !</Alert></Container>
         return this.leaderboardForm();
     }
 }

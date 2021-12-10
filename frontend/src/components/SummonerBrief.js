@@ -30,16 +30,17 @@ export default class SummonerBrief extends React.Component{
             fetchedTFT: false,
             fetchedMASTERY: false,
             account: props.account,
+            isInLeaderboard: false,
             league:     [],
             mastery:    [],
         }
-            
     }
 
    componentDidMount(){
     if( this.state.game === "lol"){
         this.setLeagueLOL();
         this.setMastery();
+        this.isInLeaderboard(this.state.account['name']);
     }
     else
         this.setLeagueTFT();
@@ -54,6 +55,7 @@ export default class SummonerBrief extends React.Component{
                 fetchedLEAGUE: true,
                 league: response.data
             });
+
         })
         .catch((error) => {
             console.log(error);
@@ -93,6 +95,29 @@ export default class SummonerBrief extends React.Component{
         
     }
 
+    isInLeaderboard(name){
+        let api = new OmnesAPI();
+        api.fetchSummoner(name)
+        .then((response) => {
+            if( response.data.summoner === null){
+                this.setState({
+                    isInLeaderboard: false,
+                });
+            }
+            else{
+            this.setState({
+                isInLeaderboard: true,
+                });
+            }
+        })
+        .catch((error) => {
+            this.setState({
+                isInLeaderboard: false,
+            });
+            console.log(error);
+        });
+    }
+
     parseMasteryData()
     {
         const mastery = this.state.mastery;
@@ -126,7 +151,7 @@ export default class SummonerBrief extends React.Component{
         return null;
     }
 
-
+    
 
     render(){
 
@@ -156,20 +181,24 @@ export default class SummonerBrief extends React.Component{
         for(let i = 0; i < leagues.length; i++)
         {
             let league = leagues[i];
-
-            if( league.queueType == "RANKED_TFT_PAIRS" )
+            if( league.queueType == "RANKED_TFT_PAIRS"){
                 continue;
+            }     
+            if (league.queueType == "RANKED_TFT_TURBO"){
+                leagueNames.push("HYPER ROLL");
+                console.log(league);
+            }
             else if ( league.queueType == "RANKED_FLEX_SR" ){
                 leagueNames.push("FLEX");
             }
             else if (league.queueType == "RANKED_TFT"){
                 leagueNames.push("RANKED TFT");
             }
-            else{
+            else if (league.queueType == "RANKED_SOLO_5x5"){
                 leagueNames.push("SOLO/DUO");
             }
 
-            leagueTab.push( <SummonerLeague leaguePoints={league.leaguePoints} losses={league.losses} queueType={league.queueType} rank={league.rank} tier={league.tier} wins={league.wins}/> ); 
+            leagueTab.push( <SummonerLeague league={league}/> ); 
         }   
 
         const masteryData = this.parseMasteryData()
@@ -189,7 +218,6 @@ export default class SummonerBrief extends React.Component{
             */
             const champName = masteryData.name;
             let champImgPath = champName.replace(/[^a-z0-9]/gmi, " ").replace(/\s+/g, "");
-            console.log(champImgPath);
             //Gestion des exeptions:
             switch (champImgPath){
                 case "VelKoz": champImgPath = "Velkoz"; break;
@@ -209,7 +237,10 @@ export default class SummonerBrief extends React.Component{
             
 
             masteryComponent = <SummonerMastery champName ={champName} mIcon={values.mIcon} mLevel={values.mLevel} mPoints={values.mPoints} />;
-            btn = (unranked != null)?null:<SummonerButton path={`/Ajouter/${summonerName}`} txt="Ajouter au Leaderboard"/>;
+
+            const btnStyle = (this.state.isInLeaderboard)?"disabled":null;
+            console.log(this.state.isInLeaderboard);
+            btn = (unranked != null)?null:<SummonerButton style={btnStyle} path={`/Ajouter/${summonerName}`} txt="Ajouter au Leaderboard"/>;
             containerStyle = "MLContainer";
 
             masteryWidget =<Col>
@@ -218,8 +249,6 @@ export default class SummonerBrief extends React.Component{
                             </Col>;
             
         }
-
-
 
         return(
             <div className="summonerBrief">

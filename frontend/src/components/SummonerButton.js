@@ -9,7 +9,7 @@ export default function SummonerButton(props)
     let navigate = useNavigate();
     return (
         <Container className="d-flex justify-content-center" style={{marginTop: "1em",}}>        
-            <Button variant="secondary" onClick={() => navigate(props.path)}>{props.txt}</Button>
+            <Button className={props.style}variant="secondary" onClick={() => navigate(props.path)}>{props.txt}</Button>
         </Container>
     );
 }

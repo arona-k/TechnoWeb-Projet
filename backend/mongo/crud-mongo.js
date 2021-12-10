@@ -76,7 +76,6 @@ exports.findSummonerByName = async (summonerName) => {
 		let myquery = { "summonerName": summonerName };
 
 		let data = await db.collection("summoner").findOne(myquery);
-
 		reponse = {
 			succes: true,
 			summoner: data,
@@ -129,35 +128,36 @@ exports.createSummoner = async (formData) => {
 exports.updateSummoner = async (id, formData) => {
 	let client = await MongoClient.connect(url, { useNewUrlParser: true });
 	let db = client.db(dbName);
-	let reponse;
+	let response;
 
 	try {
 		let myquery = { "_id": ObjectId(id) };
 		let newvalues = {
 			$set: {
-				name: formData.name,
-                level: formData.lvl,
+				name: formData.summonerName,
+                level: formData.level,
                 rank: formData.rank,
                 school: formData.school,
 			}
 		};
 		let result = await db.collection("summoner").updateOne(myquery, newvalues);
 
-		reponse = {
+		response = {
 			succes: true,
 			result: result,
 			error: null,
-			msg: "Modification réussie " + result
+			msg: "Modification réussie " + result,
+			test: formData,
 		};
 	} catch (err) {
-		reponse = {
+		response = {
 			succes: false,
 			error: err,
 			msg: "Problème à la modification"
 		};
 	} finally {
 		client.close();
-		return reponse;
+		return response;
 	}
 
 }

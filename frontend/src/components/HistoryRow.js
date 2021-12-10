@@ -246,22 +246,8 @@ export default class HistoryRow extends React.Component
         return(
             <div className={historyContainer}>
                 <Row>
-                    <Col xs={2}>
-                        <Row className="justify-items-center">
-                            <h1>{participant.placement}</h1>
-                        </Row>
-                        <Container className="d-flex p-2" >
-                            
-                        </Container>
-                    </Col>       
-                    <Col xs={8}>
-                    
-                        
-                    </Col>
+                            <h4 style={{fontSize: "0.9em"}}>TOP</h4><h1> {participant.placement}</h1>
 
-                    <Col>
-                       
-                    </Col>
                 </Row>
             </div>
         );

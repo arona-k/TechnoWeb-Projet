@@ -79,7 +79,6 @@ export default class SummonerHandler extends React.Component{
         if( !this.state.fetchedTFT || !this.state.fetchedLOL ) 
             return null;
 
-        
         if ( this.state.error )
             return <p>error</p>
 

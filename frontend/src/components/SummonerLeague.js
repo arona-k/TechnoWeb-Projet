@@ -13,18 +13,12 @@ export default class SummonerHistory extends React.Component{
     {
         super(props);
         this.state={
-            leaguePoints: props.leaguePoints,
-            losses: props.losses,
-            queueType: props.queueType,
-            rank: props.rank,
-            tier: props.tier,
-            wins: props.wins,
+            league: props.league,
         };
     }
 
-    render()
-    {
-        const league = this.state;
+    renderDefault(){
+        const league = this.state.league;
         const EMBLEM_PATH = `${ASSET_EMBLEM}_${league.tier}.png`;
         return(        
             <Row>
@@ -38,6 +32,31 @@ export default class SummonerHistory extends React.Component{
                 </Col>
            </Row>
         );
+    }
+
+    renderTFTExeption(){
+        const league = this.state.league;
+        console.log(league);
+        return(        
+            <Row>
+                <Col style={{borderRight: 'solid #2b2b2b 0.1em'}}>
+                    <Row style={{textAlign: 'center'}}><h5>{league.ratedTier} TIER</h5></Row>
+                    <Row style={{textAlign: 'center'}}><p>{league.ratedRating}</p></Row>
+                </Col>
+                <Col className="d-flex justify-content-center">
+                    <SummonerPie wins={league.wins} losses={league.losses}/>
+                </Col>
+           </Row>
+        );
+    }
+    render()
+    {
+        if(this.state.league.queueType == "RANKED_TFT_TURBO")
+        {
+            return this.renderTFTExeption();
+        }
+        else
+            return this.renderDefault();
     }
 
 }
